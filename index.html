@@ -72,7 +72,7 @@ section{padding-block:clamp(72px,10vw,128px)}
 .links a{text-decoration:none;font-weight:600;font-size:.9rem;padding:8px 11px;border-radius:999px;color:var(--muted);transition:.15s}
 .links a:hover,.links a.on{color:var(--ink);background:var(--accent-soft)}
 .lang{display:flex;border:1px solid var(--line);border-radius:999px;overflow:hidden;flex-shrink:0}
-.lang button{background:none;border:0;font:700 .7rem var(--mono);padding:7px 8px;color:var(--muted);cursor:pointer}
+.lang button{background:none;border:0;font:700 .7rem var(--mono);width:34px;padding:7px 0;text-align:center;color:var(--muted);cursor:pointer}
 .lang button[aria-pressed="true"]{background:var(--accent);color:#fff}
 .btn{display:inline-flex;align-items:center;gap:10px;font:700 .98rem var(--body);padding:14px 24px;border-radius:999px;border:2px solid transparent;cursor:pointer;text-decoration:none;transition:transform .15s,background .15s;white-space:nowrap}
 .btn:hover{transform:translateY(-2px)}
@@ -80,17 +80,31 @@ section{padding-block:clamp(72px,10vw,128px)}
 .btn-primary:hover{background:var(--signal-ink)}
 .btn-teal{background:var(--accent);color:#fff}
 .btn-ghost{border-color:currentColor;background:transparent}
-.nav .btn{padding:9px 16px;font-size:.84rem}
-.burger{display:none;background:none;border:1px solid var(--line);border-radius:999px;padding:9px 16px;cursor:pointer;color:var(--ink);font:700 .85rem var(--body)}
+.nav .btn{padding:9px 10px;font-size:.84rem;width:164px;justify-content:center;flex-shrink:0}
+.links a{white-space:nowrap}
+.nav .wrap{gap:12px}
+.links a{padding:8px 9px}
+.themebtn{width:84px;flex-shrink:0;border:1px solid var(--line);background:var(--surface);border-radius:999px;padding:8px 0;font:700 .8rem var(--body);color:var(--ink);cursor:pointer;text-align:center}
+.themebtn:hover{border-color:var(--accent)}
+.themebtn.m{display:none}
+.iglink{display:inline-flex;align-items:center;gap:10px;text-decoration:none;color:inherit}
+.iglink .ig{flex-shrink:0;color:var(--accent)}
+.iglink:hover b{text-decoration:underline}
+.iglink.foot .ig{color:var(--on-deep)}
+.iglink.foot:hover .ig{color:var(--accent)}
+@media (min-width:1201px){.links{min-width:0;overflow:hidden;flex:1;justify-content:flex-end}}
+.burger{display:none;background:none;border:1px solid var(--line);border-radius:999px;padding:9px 0;width:86px;text-align:center;cursor:pointer;color:var(--ink);font:700 .85rem var(--body)}
 .progress{position:absolute;left:0;right:0;bottom:-1px;height:3px}
 .progress i{display:block;height:100%;width:0;background:var(--accent);position:relative}
 .progress i::after{content:"";position:absolute;right:0;top:-4px;width:11px;height:11px;border-radius:50%;background:var(--signal);box-shadow:0 0 0 3px var(--bg);transform:translateX(50%)}
 .progress i[style*="width: 0"]::after,.progress i:not([style])::after{opacity:0}
-@media (max-width:1060px){
+@media (max-width:1200px){
   .links{display:none;position:absolute;top:70px;left:0;right:0;flex-direction:column;background:var(--surface);padding:12px 20px 20px;border-bottom:1px solid var(--line);margin:0}
   .links.open{display:flex}
   .links a{font-size:1.05rem;padding:12px}
   .burger{display:block;margin-left:auto}
+  .themebtn.d{display:none}
+  .links .themebtn.m{display:block;width:auto;margin-top:8px;padding:12px;text-align:left;border-radius:10px;font-size:1rem}
   .nav .btn{display:none}
 }
 @media (max-width:420px){.brand small{display:none}}
@@ -466,12 +480,14 @@ table.sc tbody tr:last-child td{border-bottom:0}
       <a href="#proceso" data-i18n="nav3">Proceso</a>
       <a href="#dia-d" data-i18n="nav6">Día D</a>
       <a href="#presupuesto" data-i18n="nav4">Presupuesto</a>
+      <button class="themebtn m" type="button" aria-pressed="false">Oscuro</button>
     </nav>
+    <a class="btn btn-primary navcta" href="#presupuesto" data-i18n="cta">Pide presupuesto</a>
+    <button class="themebtn d" type="button" aria-pressed="false">Oscuro</button>
     <div class="lang" role="group" aria-label="Idioma">
       <button data-lang="es" aria-pressed="true">ES</button><button data-lang="ca" aria-pressed="false">CA</button><button data-lang="en" aria-pressed="false">EN</button><button data-lang="de" aria-pressed="false">DE</button>
     </div>
-    <a class="btn btn-primary" href="#presupuesto" data-i18n="cta">Pide presupuesto</a>
-    <button class="burger" id="burger" aria-label="Menú" aria-expanded="false">Menú</button>
+    <button class="burger" id="burger" aria-label="Menú" aria-expanded="false" data-i18n="menu">Menú</button>
   </div>
   <div class="progress" aria-hidden="true"><i id="prog"></i></div>
 </header>
@@ -752,7 +768,7 @@ table.sc tbody tr:last-child td{border-bottom:0}
     <div class="contact-strip">
       <div class="cbox"><span class="eyebrow">Email</span><b id="mail">info@gied.info</b><button class="copy" data-copy="mail" data-i18n="copy">Copiar</button></div>
       <div class="cbox"><span class="eyebrow" data-i18n="tel">Teléfono</span><b id="phone">+34 600 000 000</b><button class="copy" data-copy="phone" data-i18n="copy">Copiar</button></div>
-      <div class="cbox"><span class="eyebrow">Instagram</span><b>@gied</b><a class="copy" href="https://www.instagram.com/" target="_blank" rel="noopener" data-i18n="open">Abrir</a></div>
+      <div class="cbox"><span class="eyebrow">Instagram</span><a class="iglink" href="https://www.instagram.com/gied.esports/" target="_blank" rel="noopener" aria-label="Instagram de GIED"><svg class="ig" viewBox="0 0 24 24" width="30" height="30" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4.2"/><circle cx="17.4" cy="6.6" r="1.1" fill="currentColor" stroke="none"/></svg><b>@gied.esports</b></a></div>
     </div>
   </div>
 </section>
@@ -761,6 +777,7 @@ table.sc tbody tr:last-child td{border-bottom:0}
 <footer class="site">
   <div class="wrap">
     <span class="glogo"></span>
+    <a class="iglink foot" href="https://www.instagram.com/gied.esports/" target="_blank" rel="noopener" aria-label="Instagram de GIED"><svg class="ig" viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4.2"/><circle cx="17.4" cy="6.6" r="1.1" fill="currentColor" stroke="none"/></svg></a>
     <nav><a href="#inicio" data-i18n="l1">Aviso legal</a><a href="#inicio" data-i18n="l2">Política de privacidad</a><a href="#inicio" data-i18n="l3">Política de cookies</a></nav>
     <span style="font-size:.8rem;color:var(--dim)">© 2026 GIED · Illes Balears<span class="jhonly"> · <span data-i18n="cred">Diseño y desarrollo</span>: JoseHome</span></span>
   </div>
@@ -806,8 +823,8 @@ table.sc tbody tr:last-child td{border-bottom:0}
       <div class="sec-head"><p class="eyebrow">Bajo el capó</p><h2>Lo que no se ve, pero cuenta</h2></div>
       <div class="under">
         <div class="uc"><span class="k">Nombre</span><h3>“Esports” en el título</h3><p>La pestaña del navegador y Google muestran “GIED Esports”. Esports se asocia a videojuegos. En la nueva: “GIED Eventos Deportivos”.</p></div>
-        <div class="uc"><span class="k">Dirección</span><h3>gied.vercel.app</h3><p>Es una dirección provisional. Ya tenéis el dominio gied.info en el correo: la web nueva se publica ahí.</p></div>
-        <div class="uc"><span class="k">Visibilidad</span><h3>Contenido solo con JavaScript</h3><p>Al leer la página sin ejecutar JavaScript sale vacía: solo título y descripción. Algunos buscadores y asistentes de IA la ven así. La nueva lleva los textos en la propia página.</p></div>
+        <div class="uc"><span class="k">Dirección</span><h3>gied.vercel.app</h3><p>Es una dirección provisional. Ya tenéis el dominio gied.info en el correo: la web nueva se publicaría ahí.</p></div>
+        <div class="uc"><span class="k">Visibilidad</span><h3>Contenido solo con JavaScript</h3><p>Al leer la página sin ejecutar JavaScript sale vacía: solo título y descripción. Algunos buscadores y asistentes de IA la ven así. La nueva lleva los textos principales escritos en la propia página.</p></div>
       </div>
     </div>
   </section>
@@ -941,7 +958,7 @@ document.querySelectorAll(".glogo").forEach(el=>{const dark=el.closest(".bigbib 
 
 /* ================= TEXTOS ================= */
 const I18N={
-ca:{nav1:"Què és GIED",nav7:"Esdeveniments",nav2:"Serveis",nav3:"Procés",nav6:"Dia D",nav4:"Pressupost",cta:"Demana pressupost",clk:"Crono oficial",live:"EN CURSA",
+ca:{nav1:"Què és GIED",nav7:"Esdeveniments",nav2:"Serveis",nav3:"Procés",nav6:"Dia D",nav4:"Pressupost",cta:"Demana pressupost",menu:"Menú",clk:"Crono oficial",live:"EN CURSA",
 h_t2:"a la línia de meta.",h_p:"Organitzam tornejos, curses populars, campus i competicions federades a les Balears de principi a fi. Tu poses la idea. Nosaltres, els permisos, la logística, l'equip i el dia D.",h_c1:"Configura el teu esdeveniment",h_c2:"Propers esdeveniments",
 hs1:"En pista des de",hs2:"Formats d'esdeveniment",hs3:"Illes",hs4:"Gestió integral",b_c:"ORGANITZADOR OFICIAL",
 a_eb:"Què és GIED?",a_t:"Esport entès <span class=\"hl\">des de dins</span>",a_p:"GIED neix per professionalitzar i elevar el nivell dels esdeveniments esportius a les Illes Balears, amb una visió moderna, eficient i centrada en les persones.",a_f:"Fundada el <strong>desembre de 2021</strong> per <strong>Gabriel i Miguel Quetglas Bover</strong>, amb una estructura familiar i professional.",
@@ -958,7 +975,7 @@ c_eb:"Pressupost",c_t:"Conta'ns la teva idea. <span class=\"hl\">Nosaltres la fe
 t_eb:"La teva sol·licitud",t1:"Participants",t2:"Illa",t3:"Data",t4:"Inclou",t_lt:"setmanes d'antelació recomanades",t_n:"Orientatiu. Responem en 48 h feineres amb una proposta i els passos següents.",
 q_eb:"Preguntes freqüents",q_t:"El que ens solen demanar",fq1:"Amb quanta antelació cal contactar?",fa1:"Per a una cursa popular o una diada, l'ideal són 3 o 4 mesos: els permisos municipals i de trànsit marquen els terminis. Un torneig privat o un clínic es pot muntar en unes setmanes.",fq2:"Us encarregau dels permisos i assegurances?",fa2:"Sí. Tramitam autoritzacions, assegurança de responsabilitat civil i d'accidents, i coordinam amb Policia Local, Protecció Civil i serveis sanitaris.",fq5:"Podeu gestionar les inscripcions?",fa5:"Sí. Publicam l'esdeveniment al calendari, obrim la inscripció en línia amb pagament i cada participant rep el seu dorsal. Vosaltres veis la llista d'inscrits al moment.",fq3:"Gestionau també instal·lacions?",fa3:"Sí, tant públiques com privades: programació d'activitats, personal i operativa diària.",fq4:"Treballau a totes les illes?",fa4:"Treballam a tot l'arxipèlag balear: Mallorca, Menorca, Eivissa i Formentera.",
 z_eb:"Darrera recta",z_t:"Preparats per <span class=\"hl-o\">a la sortida?</span>",z_c:"Començar el meu esdeveniment",copy:"Copiar",open:"Obrir",tel:"Telèfon",l1:"Avís legal",l2:"Política de privacitat",l3:"Política de galetes",cred:"Disseny i desenvolupament"},
-en:{nav1:"About GIED",nav7:"Events",nav2:"Services",nav3:"Process",nav6:"Race day",nav4:"Quote",cta:"Get a quote",clk:"Official clock",live:"RACE ON",
+en:{nav1:"About GIED",nav7:"Events",nav2:"Services",nav3:"Process",nav6:"Race day",nav4:"Quote",cta:"Get a quote",menu:"Menu",clk:"Official clock",live:"RACE ON",
 h_t2:"across the finish line.",h_p:"We run tournaments, fun runs, sports camps and official competitions across the Balearics, start to finish. You bring the idea. We bring the permits, logistics, staff and race day.",h_c1:"Plan your event",h_c2:"Upcoming events",
 hs1:"On track since",hs2:"Event formats",hs3:"Islands",hs4:"End-to-end management",b_c:"OFFICIAL ORGANISER",
 a_eb:"About GIED",a_t:"Sport, understood <span class=\"hl\">from the inside</span>",a_p:"GIED was founded to professionalise and raise the standard of sports events in the Balearic Islands, with a modern, efficient, people-first approach.",a_f:"Founded in <strong>December 2021</strong> by <strong>Gabriel and Miguel Quetglas Bover</strong>, a family business run professionally.",
@@ -975,7 +992,7 @@ c_eb:"Quote",c_t:"Tell us your idea. <span class=\"hl\">We'll make it happen.</s
 t_eb:"Your request",t1:"Participants",t2:"Island",t3:"Date",t4:"Includes",t_lt:"weeks' notice recommended",t_n:"Indicative. We reply within 2 working days with a proposal and next steps.",
 q_eb:"FAQ",q_t:"What people usually ask",fq1:"How far ahead should I get in touch?",fa1:"For a fun run or community day, 3 to 4 months is ideal: council and traffic permits set the timeline. A private tournament or clinic can be ready in a few weeks.",fq2:"Do you handle permits and insurance?",fa2:"Yes. We process authorisations, liability and accident insurance, and coordinate with local police, civil protection and medical services.",fq5:"Can you handle registrations?",fa5:"Yes. We publish the event on the calendar, open online registration with payment, and every participant gets their bib. You see the sign-up list instantly.",fq3:"Do you also manage facilities?",fa3:"Yes, both public and private: activity programming, staffing and daily operations.",fq4:"Do you work on every island?",fa4:"We work across the Balearics: Mallorca, Menorca, Ibiza and Formentera.",
 z_eb:"Home straight",z_t:"Ready for <span class=\"hl-o\">the start?</span>",z_c:"Start my event",copy:"Copy",open:"Open",tel:"Phone",l1:"Legal notice",l2:"Privacy policy",l3:"Cookie policy",cred:"Design and development"},
-de:{nav1:"Über GIED",nav7:"Events",nav2:"Leistungen",nav3:"Ablauf",nav6:"Renntag",nav4:"Angebot",cta:"Angebot anfordern",clk:"Offizielle Zeit",live:"IM RENNEN",
+de:{nav1:"Über GIED",nav7:"Events",nav2:"Leistungen",nav3:"Ablauf",nav6:"Renntag",nav4:"Angebot",cta:"Angebot anfordern",menu:"Menü",clk:"Offizielle Zeit",live:"IM RENNEN",
 h_t2:"über die Ziellinie.",h_p:"Wir organisieren Turniere, Volksläufe, Sportcamps und offizielle Wettkämpfe auf den Balearen – von Anfang bis Ende. Sie bringen die Idee. Wir kümmern uns um Genehmigungen, Logistik, Team und den großen Tag.",h_c1:"Event planen",h_c2:"Nächste Events",
 hs1:"Am Start seit",hs2:"Eventformate",hs3:"Inseln",hs4:"Komplettservice",b_c:"OFFIZIELLER VERANSTALTER",
 a_eb:"Über GIED",a_t:"Sport, <span class=\"hl\">von innen verstanden</span>",a_p:"GIED wurde gegründet, um Sportveranstaltungen auf den Balearen zu professionalisieren – modern, effizient und mit dem Menschen im Mittelpunkt.",a_f:"Gegründet im <strong>Dezember 2021</strong> von <strong>Gabriel und Miguel Quetglas Bover</strong>, ein Familienunternehmen mit professioneller Struktur.",
@@ -1115,6 +1132,7 @@ function setLang(l){
   rotI=0;$("#rot").textContent=L(ROT)[0];
   $("#dPlay").textContent=dTimer?D().pause:D().play;
   marquee();tasks();events();opts();steps();dday();ticket();$("#ok").classList.remove("show");
+  if(typeof themeLabels==="function")themeLabels();
   try{localStorage.setItem("gied-lang",l)}catch(e){}
 }
 
@@ -1228,10 +1246,11 @@ const SCORE=[
  ["Argumento de por qué contrataros",0,1],
  ["Gestión de instalaciones como servicio",0,1],
  ["Preguntas frecuentes",0,1],
- ["Modo oscuro",0,1],
+ ["Modo oscuro con botón para cambiarlo",0,1],
  ["Varios idiomas",1,1],
- ["Contenido legible sin JavaScript",0,1],
- ["Dirección propia (gied.info)",0,1]];
+ ["Textos principales legibles sin JavaScript",0,1],
+ ["Enlace a Instagram",1,1],
+ ["Dirección propia (gied.info)",0,"pub"]];
 const DIAG=[
  {shot:0,t:"Portada",now:"Foto y “¡Bienvenidos a GIED!”. El único botón, “Descubre más sobre nosotros”, solo baja por la página. No invita a pedir presupuesto.",fix:"Titular que dice qué hacéis, crono en directo, botón directo a presupuesto y acceso a próximos eventos.",go:"inicio"},
  {shot:1,t:"¿Qué es GIED?",now:"Las cifras “2021 Año inicio” y “100% Dedicación” ocupan sitio pero no convencen a nadie.",fix:"Fundadores, tres pilares claros y una comparativa “Por tu cuenta / Con GIED” que explica el valor.",go:"por-que"},
@@ -1240,7 +1259,7 @@ const DIAG=[
  {shot:4,t:"Contacto",now:"Teléfono de relleno (+34 600 000 000) y formulario de nombre, email y mensaje.",fix:"Configurador que recoge tipo de evento, participantes, isla, fecha y servicios, y calcula la antelación recomendada.",go:"presupuesto"},
  {shot:5,t:"Menú",now:"Todo el menú está escondido tras el botón de tres rayas, también en ordenador. Hay que abrirlo para saber qué hay.",fix:"Menú siempre visible en ordenador, barra de progreso y botón fijo de presupuesto.",go:"inicio"}];
 function renderAntes(){
-  const mark=v=>v==="pend"?'<span class="eq">Falta el número</span>':v?'<span class="yes">Sí</span>':'<span class="no">No</span>';
+  const mark=v=>v==="pend"?'<span class="eq">Falta el número</span>':v==="pub"?'<span class="eq">Al publicarla</span>':v?'<span class="yes">Sí</span>':'<span class="no">No</span>';
   $("#scBody").innerHTML=SCORE.map(r=>`<tr><td>${r[0]}</td><td>${mark(r[1])}</td><td>${mark(r[2])}</td></tr>`).join("");
   const n=SCORE.length;$("#scOld").textContent=`${SCORE.filter(r=>r[1]===1).length}/${n}`;$("#scNew").textContent=`${SCORE.filter(r=>r[2]===1).length}/${n}`;
   $("#diag").innerHTML=DIAG.map((d,i)=>`<article class="dg">
@@ -1269,9 +1288,17 @@ function fromHash(){const h=location.hash.slice(1);if(["web","antes","propuesta"
 addEventListener("hashchange",fromHash);
 document.addEventListener("click",e=>{const a=e.target.closest('a[href^="#"]');if(!a)return;const id=a.getAttribute("href").slice(1),el=document.getElementById(id);if(el&&el.closest(".tab")?.hidden){e.preventDefault();showTab(el.closest(".tab").id.replace("tab-",""),id)}});
 
+const THEME_L={es:["Oscuro","Claro"],ca:["Fosc","Clar"],en:["Dark","Light"],de:["Dunkel","Hell"]};
+const THEME_M={es:["Modo oscuro","Modo claro"],ca:["Mode fosc","Mode clar"],en:["Dark mode","Light mode"],de:["Dunkelmodus","Hellmodus"]};
+function isDark(){const t=document.documentElement.getAttribute("data-theme");return t?t==="dark":matchMedia("(prefers-color-scheme: dark)").matches}
+function themeLabels(){const dk=isDark();$$(".themebtn").forEach(b=>{const T=b.classList.contains("m")?THEME_M:THEME_L;b.textContent=L(T)[dk?1:0];b.setAttribute("aria-pressed",dk)})}
+$$(".themebtn").forEach(b=>b.onclick=()=>{const t=isDark()?"light":"dark";document.documentElement.setAttribute("data-theme",t);try{localStorage.setItem("gied-theme",t)}catch(e){}themeLabels()});
+try{const st=localStorage.getItem("gied-theme");if(st==="dark"||st==="light")document.documentElement.setAttribute("data-theme",st)}catch(e){}
+try{matchMedia("(prefers-color-scheme: dark)").addEventListener("change",themeLabels)}catch(e){}
 let saved="es";try{saved=localStorage.getItem("gied-lang")||"es"}catch(e){}
 setLang(["es","ca","en","de"].includes(saved)?saved:"es");
 fromHash();
+themeLabels();
 
 /* ================= PDF ================= */
 let dl=null,busy=false;
@@ -1301,7 +1328,7 @@ async function savePdf(list,name,btn,opt){
   finally{busy=false;btn.disabled=false;btn.textContent=old}
 }
 (async()=>{
-  if(IS_WEB)return;
+  if(IS_WEB){if(window.html2canvas&&window.jspdf)dl={save:async({filename,data})=>{const u=URL.createObjectURL(data),a=document.createElement("a");a.href=u;a.download=filename;document.body.appendChild(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(u),4000);return{status:"saved"}}};return}
   dl=window.claude?.use?await window.claude.use("downloads"):null;
   if(!dl||!window.html2canvas||!window.jspdf){dl=null;return}
   $$("[data-pdf]").forEach(s=>{s.classList.add("pdf-sec");const b=document.createElement("button");b.className="pdf-btn";b.type="button";
