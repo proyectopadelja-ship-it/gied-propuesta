@@ -24,7 +24,7 @@
 *{box-sizing:border-box}
 [hidden]{display:none!important}
 html{scroll-behavior:smooth}
-body{background:var(--bg);color:var(--ink);font-family:var(--body);font-size:16px;line-height:1.6;overflow-x:hidden;padding-bottom:84px}
+body{background:var(--bg);color:var(--ink);font-family:var(--body);font-size:16px;line-height:1.6;overflow-x:hidden}
 .wrap{max-width:1200px;margin:0 auto;padding-inline:20px}
 h1,h2,h3{font-family:var(--display);text-transform:uppercase;line-height:.92;margin:0;text-wrap:balance}
 h2{font-size:clamp(2.6rem,7vw,5rem);font-weight:900}
@@ -55,7 +55,9 @@ section{padding-block:clamp(72px,10vw,128px)}
 .dock button[aria-selected="true"]{background:#e4f6f3;color:#0c2624}
 .dock .dpdf{background:#ff5a2c;color:#fff}
 .dock .dpdf[disabled]{opacity:.7;cursor:wait}
-@media (max-width:640px){.dock .jh{display:none}.dock button{padding:9px 11px;font-size:.78rem}}
+.dock{transition:transform .3s ease,opacity .3s ease}
+.dock.away{transform:translate(-50%,140%);opacity:0;pointer-events:none}
+@media (max-width:640px){.dock .jh{display:none}.dock{padding:4px;bottom:calc(10px + env(safe-area-inset-bottom,0px))}.dock button{padding:8px 11px;font-size:.76rem}}
 .toast{position:fixed;left:50%;bottom:calc(84px + env(safe-area-inset-bottom,0px));transform:translateX(-50%);z-index:90;background:var(--ink);color:var(--bg);padding:10px 16px;border-radius:10px;font-weight:600;font-size:.88rem;max-width:calc(100% - 32px);text-align:center}
 .pdf-sec{position:relative}
 .pdf-btn{position:absolute;top:14px;right:16px;z-index:5;display:inline-flex;align-items:center;gap:6px;font:700 .68rem var(--mono);letter-spacing:.06em;text-transform:uppercase;padding:6px 11px;border-radius:999px;border:1px solid var(--line);background:var(--surface);color:var(--ink);cursor:pointer;box-shadow:0 4px 14px -6px rgba(0,0,0,.3);opacity:.85}
@@ -128,6 +130,7 @@ section{padding-block:clamp(72px,10vw,128px)}
 .hero-stats{display:flex;flex-wrap:wrap;gap:28px;margin-top:40px;padding-top:24px;border-top:1px solid rgba(255,255,255,.12)}
 .hero-stats div{display:grid}
 .hero-stats b{font:900 2.3rem/1 var(--display);color:#fff}
+@media (max-width:560px){.hero-stats{display:grid;grid-template-columns:1fr 1fr;gap:22px 16px}}
 .hero-stats span{font:600 .68rem var(--mono);letter-spacing:.1em;text-transform:uppercase;color:#8fb3ae;margin-top:6px}
 .poster{position:relative;justify-self:end;width:100%;max-width:400px}
 .poster .ph{border-radius:14px;overflow:hidden;transform:rotate(2deg);box-shadow:0 40px 80px -24px rgba(0,0,0,.7);aspect-ratio:640/843;max-width:100%;background:#0a2e2b}
@@ -361,7 +364,7 @@ details p{padding-bottom:20px;color:var(--muted)}
 .cbox b{font-size:1.1rem;overflow-wrap:anywhere}
 .copy{justify-self:start;margin-top:8px;background:none;border:1px solid rgba(255,255,255,.22);border-radius:8px;padding:5px 11px;font:600 .75rem var(--body);color:var(--on-deep);cursor:pointer;text-decoration:none}
 @media (max-width:760px){.contact-strip{grid-template-columns:1fr}}
-footer.site{background:var(--deep);color:var(--on-deep);padding-block:32px;border-top:1px solid rgba(255,255,255,.1)}
+footer.site{background:var(--deep);color:var(--on-deep);padding-block:32px calc(104px + env(safe-area-inset-bottom,0px));border-top:1px solid rgba(255,255,255,.1)}
 footer.site .wrap{display:flex;flex-wrap:wrap;gap:24px;justify-content:space-between;align-items:center}
 footer.site nav{display:flex;flex-wrap:wrap;gap:18px;font-size:.85rem;color:var(--dim)}
 footer.site nav a{text-decoration:none}
@@ -388,6 +391,7 @@ table.sc th,table.sc td{padding:14px 18px;border-bottom:1px solid var(--line);te
 table.sc thead th{font:700 .7rem var(--mono);letter-spacing:.1em;text-transform:uppercase;color:var(--muted);background:var(--bg)}
 table.sc td:nth-child(n+2),table.sc th:nth-child(n+2){text-align:center;width:150px}
 table.sc tbody tr:last-child td{border-bottom:0}
+@media (max-width:640px){table.sc{min-width:0;font-size:.88rem}table.sc th,table.sc td{padding:12px 10px}table.sc td:nth-child(n+2),table.sc th:nth-child(n+2){width:76px;padding-inline:4px}.yes,.no,.eq{font-size:.72rem;padding:4px 8px}.eq{white-space:normal;line-height:1.2;font-size:.64rem;padding:4px 6px;max-width:72px}}
 .yes,.no,.eq{display:inline-flex;align-items:center;justify-content:center;gap:6px;font:700 .8rem var(--mono);padding:4px 10px;border-radius:999px}
 .yes{background:var(--accent-soft);color:var(--good)}
 .no{background:var(--signal-soft);color:var(--bad)}
@@ -462,7 +466,7 @@ table.sc tbody tr:last-child td{border-bottom:0}
 .nx p{color:var(--muted);font-size:.92rem}
 @media (max-width:860px){.next{grid-template-columns:1fr 1fr;row-gap:20px}}
 @media (max-width:480px){.next{grid-template-columns:1fr}}
-.jh-foot{border-top:1px solid var(--line);padding-block:28px;font-size:.85rem;color:var(--muted)}
+.jh-foot{border-top:1px solid var(--line);padding-block:28px calc(100px + env(safe-area-inset-bottom,0px));font-size:.85rem;color:var(--muted)}
 .jh-foot .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;gap:12px}
 .jh-foot b{color:var(--ink)}
 .jhonly{display:none!important}
@@ -1164,11 +1168,10 @@ function openSign(id){
      <div class="bigbib" id="bigbib">
       <div class="band"><span class="glogo">${logoSVG("#ffffff")}</span><span>${esc(L(e.name))}</span></div>
       <div class="mid"><div class="num">${num}</div><div class="nm">${esc(n)}</div></div>
-      <div class="ft"><span>${esc(cat)}<br>${e.place} · ${new Date(e.date+"T12:00").toLocaleDateString(loc(),{day:"2-digit",month:"2-digit",year:"numeric"})}</span>${barcode(num)}</div>
+      <div class="ft"><span>${esc(cat)}<br>${e.place}<br>${new Date(e.date+"T12:00").toLocaleDateString(loc(),{day:"2-digit",month:"2-digit",year:"numeric"})}</span>${barcode(num)}</div>
      </div>
      <div style="display:flex;flex-wrap:wrap;gap:10px">
       <button class="btn btn-teal" type="button" id="bibDl" ${dl?"":"hidden"}>${d.m_dl}</button>
-      <button class="btn btn-ghost" type="button" data-close>${d.m_close}</button>
      </div>`;
     events();
     const b=$("#bibDl");if(b)b.onclick=()=>savePdf([$("#bigbib")],`Dorsal-${num}-GIED.pdf`,b,{pad:24});
@@ -1207,7 +1210,9 @@ $("#burger").onclick=()=>{const o=$("#links").classList.toggle("open");$("#burge
 $$("#links a").forEach(a=>a.addEventListener("click",()=>$("#links").classList.remove("open")));
 const io=new IntersectionObserver(es=>es.forEach(en=>{if(en.isIntersecting)$$("#links a").forEach(a=>a.classList.toggle("on",a.getAttribute("href")==="#"+en.target.id))}),{rootMargin:"-45% 0px -50% 0px"});
 ["que-es","eventos","servicios","proceso","dia-d","presupuesto"].forEach(id=>io.observe(document.getElementById(id)));
-addEventListener("scroll",()=>{const h=document.documentElement.scrollHeight-innerHeight;$("#prog").style.width=(h>0?scrollY/h*100:0)+"%"},{passive:true});
+let lastY=scrollY;
+addEventListener("scroll",()=>{const h=document.documentElement.scrollHeight-innerHeight;$("#prog").style.width=(h>0?scrollY/h*100:0)+"%";
+  const y=scrollY,dk=$(".dock");if(y>lastY+6&&y>120)dk.classList.add("away");else if(y<lastY-6||y<120||y>=h-40)dk.classList.remove("away");lastY=y},{passive:true});
 if(!RM)setInterval(()=>{if($("#tab-web").hidden)return;rotI=(rotI+1)%L(ROT).length;const r=$("#rot");r.textContent=L(ROT)[rotI];r.style.animation="none";r.offsetWidth;r.style.animation=""},2200);
 const t0=performance.now();
 (function tick(){const ms=performance.now()-t0,m=Math.floor(ms/60000),s=Math.floor(ms/1000)%60,c=Math.floor(ms/10)%100;
